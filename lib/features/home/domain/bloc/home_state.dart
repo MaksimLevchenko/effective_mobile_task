@@ -1,4 +1,5 @@
 import '../../../../core/models/api/api_character.dart';
+import '../models/character_filters.dart';
 
 enum HomeStatus {
   initial,
@@ -18,6 +19,9 @@ class HomeState {
     this.isOfflineFallback = false,
     this.errorMessage,
     this.isLoadingMore = false,
+    this.filterName = '',
+    this.filterStatus = CharacterStatusFilter.any,
+    this.filterGender = CharacterGenderFilter.any,
   });
 
   final HomeStatus status;
@@ -29,6 +33,14 @@ class HomeState {
   final bool isOfflineFallback;
   final String? errorMessage;
   final bool isLoadingMore;
+  final String filterName;
+  final CharacterStatusFilter filterStatus;
+  final CharacterGenderFilter filterGender;
+
+  bool get hasActiveFilters =>
+      filterName.trim().isNotEmpty ||
+      filterStatus != CharacterStatusFilter.any ||
+      filterGender != CharacterGenderFilter.any;
 
   HomeState copyWith({
     HomeStatus? status,
@@ -41,6 +53,9 @@ class HomeState {
     String? errorMessage,
     bool clearError = false,
     bool? isLoadingMore,
+    String? filterName,
+    CharacterStatusFilter? filterStatus,
+    CharacterGenderFilter? filterGender,
   }) {
     return HomeState(
       status: status ?? this.status,
@@ -52,6 +67,9 @@ class HomeState {
       isOfflineFallback: isOfflineFallback ?? this.isOfflineFallback,
       errorMessage: clearError ? null : (errorMessage ?? this.errorMessage),
       isLoadingMore: isLoadingMore ?? this.isLoadingMore,
+      filterName: filterName ?? this.filterName,
+      filterStatus: filterStatus ?? this.filterStatus,
+      filterGender: filterGender ?? this.filterGender,
     );
   }
 }

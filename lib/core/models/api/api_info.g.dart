@@ -1,5 +1,7 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
+// ignore_for_file: non_constant_identifier_names
+
 part of 'api_info.dart';
 
 // **************************************************************************
@@ -7,11 +9,11 @@ part of 'api_info.dart';
 // **************************************************************************
 
 _$_ApiInfo _$$_ApiInfoFromJson(Map<String, dynamic> json) => _$_ApiInfo(
-      count: (json['count'] as num?)?.toInt() ?? 0,
-      pages: (json['pages'] as num?)?.toInt() ?? 0,
-      next: json['next'] as String?,
-      prev: json['prev'] as String?,
-    );
+  count: (json['count'] as num?)?.toInt() ?? 0,
+  pages: (json['pages'] as num?)?.toInt() ?? 0,
+  next: json['next'] as String?,
+  prev: json['prev'] as String?,
+);
 
 Map<String, dynamic> _$$_ApiInfoToJson(_$_ApiInfo instance) =>
     <String, dynamic>{

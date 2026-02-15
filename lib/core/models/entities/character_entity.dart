@@ -1,10 +1,5 @@
-import 'package:isar/isar.dart';
-
 import '../api/api_character.dart';
 
-part 'character_entity.g.dart';
-
-@collection
 class CharacterEntity {
   CharacterEntity({
     required this.id,
@@ -23,12 +18,10 @@ class CharacterEntity {
     DateTime? updatedAt,
   }) : updatedAt = updatedAt ?? DateTime.now();
 
-  Id id;
+  int id;
 
-  @Index()
   String name;
 
-  @Index()
   String status;
 
   String species;
@@ -111,5 +104,45 @@ class CharacterEntity {
       'isFavorite': isFavorite,
       'updatedAt': (updatedAt ?? DateTime.now()).toIso8601String(),
     };
+  }
+
+  Map<String, dynamic> toMap() {
+    return {
+      'id': id,
+      'name': name,
+      'status': status,
+      'species': species,
+      'type': type,
+      'gender': gender,
+      'originName': originName,
+      'locationName': locationName,
+      'image': image,
+      'episodeUrls': List<String>.from(episodeUrls),
+      'remoteUrl': remoteUrl,
+      'created': created,
+      'isFavorite': isFavorite,
+      'updatedAt': (updatedAt ?? DateTime.now()).toIso8601String(),
+    };
+  }
+
+  static CharacterEntity fromMap(Map<String, dynamic> map) {
+    return CharacterEntity(
+      id: (map['id'] as num).toInt(),
+      name: map['name'] as String,
+      image: map['image'] as String,
+      status: map['status'] as String,
+      species: map['species'] as String,
+      type: map['type'] as String?,
+      gender: map['gender'] as String,
+      originName: map['originName'] as String,
+      locationName: map['locationName'] as String,
+      episodeUrls: List<String>.from(map['episodeUrls'] as List<dynamic>),
+      remoteUrl: map['remoteUrl'] as String,
+      created: map['created'] as String,
+      isFavorite: (map['isFavorite'] as bool?) ?? false,
+      updatedAt: map['updatedAt'] != null
+          ? DateTime.tryParse(map['updatedAt'] as String)
+          : null,
+    );
   }
 }

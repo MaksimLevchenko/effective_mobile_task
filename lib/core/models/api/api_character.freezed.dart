@@ -12,7 +12,8 @@ part of 'api_character.dart';
 T _$identity<T>(T value) => value;
 
 final _privateConstructorUsedError = UnsupportedError(
-    'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods');
+  'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#custom-getters-and-methods',
+);
 
 ApiCharacter _$ApiCharacterFromJson(Map<String, dynamic> json) {
   return _ApiCharacter.fromJson(json);
@@ -42,22 +43,24 @@ mixin _$ApiCharacter {
 /// @nodoc
 abstract class $ApiCharacterCopyWith<$Res> {
   factory $ApiCharacterCopyWith(
-          ApiCharacter value, $Res Function(ApiCharacter) then) =
-      _$ApiCharacterCopyWithImpl<$Res, ApiCharacter>;
+    ApiCharacter value,
+    $Res Function(ApiCharacter) then,
+  ) = _$ApiCharacterCopyWithImpl<$Res, ApiCharacter>;
   @useResult
-  $Res call(
-      {int id,
-      String name,
-      String status,
-      String species,
-      String type,
-      String gender,
-      ApiLocationRef origin,
-      ApiLocationRef location,
-      String image,
-      List<String> episode,
-      String url,
-      String created});
+  $Res call({
+    int id,
+    String name,
+    String status,
+    String species,
+    String type,
+    String gender,
+    ApiLocationRef origin,
+    ApiLocationRef location,
+    String image,
+    List<String> episode,
+    String url,
+    String created,
+  });
 
   $ApiLocationRefCopyWith<$Res> get origin;
   $ApiLocationRefCopyWith<$Res> get location;
@@ -89,56 +92,59 @@ class _$ApiCharacterCopyWithImpl<$Res, $Val extends ApiCharacter>
     Object? url = null,
     Object? created = null,
   }) {
-    return _then(_value.copyWith(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      species: null == species
-          ? _value.species
-          : species // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      gender: null == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String,
-      origin: null == origin
-          ? _value.origin
-          : origin // ignore: cast_nullable_to_non_nullable
-              as ApiLocationRef,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as ApiLocationRef,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      episode: null == episode
-          ? _value.episode
-          : episode // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String,
-    ) as $Val);
+    return _then(
+      _value.copyWith(
+            id: null == id
+                ? _value.id
+                : id // ignore: cast_nullable_to_non_nullable
+                      as int,
+            name: null == name
+                ? _value.name
+                : name // ignore: cast_nullable_to_non_nullable
+                      as String,
+            status: null == status
+                ? _value.status
+                : status // ignore: cast_nullable_to_non_nullable
+                      as String,
+            species: null == species
+                ? _value.species
+                : species // ignore: cast_nullable_to_non_nullable
+                      as String,
+            type: null == type
+                ? _value.type
+                : type // ignore: cast_nullable_to_non_nullable
+                      as String,
+            gender: null == gender
+                ? _value.gender
+                : gender // ignore: cast_nullable_to_non_nullable
+                      as String,
+            origin: null == origin
+                ? _value.origin
+                : origin // ignore: cast_nullable_to_non_nullable
+                      as ApiLocationRef,
+            location: null == location
+                ? _value.location
+                : location // ignore: cast_nullable_to_non_nullable
+                      as ApiLocationRef,
+            image: null == image
+                ? _value.image
+                : image // ignore: cast_nullable_to_non_nullable
+                      as String,
+            episode: null == episode
+                ? _value.episode
+                : episode // ignore: cast_nullable_to_non_nullable
+                      as List<String>,
+            url: null == url
+                ? _value.url
+                : url // ignore: cast_nullable_to_non_nullable
+                      as String,
+            created: null == created
+                ? _value.created
+                : created // ignore: cast_nullable_to_non_nullable
+                      as String,
+          )
+          as $Val,
+    );
   }
 
   @override
@@ -162,23 +168,25 @@ class _$ApiCharacterCopyWithImpl<$Res, $Val extends ApiCharacter>
 abstract class _$$_ApiCharacterCopyWith<$Res>
     implements $ApiCharacterCopyWith<$Res> {
   factory _$$_ApiCharacterCopyWith(
-          _$_ApiCharacter value, $Res Function(_$_ApiCharacter) then) =
-      __$$_ApiCharacterCopyWithImpl<$Res>;
+    _$_ApiCharacter value,
+    $Res Function(_$_ApiCharacter) then,
+  ) = __$$_ApiCharacterCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call(
-      {int id,
-      String name,
-      String status,
-      String species,
-      String type,
-      String gender,
-      ApiLocationRef origin,
-      ApiLocationRef location,
-      String image,
-      List<String> episode,
-      String url,
-      String created});
+  $Res call({
+    int id,
+    String name,
+    String status,
+    String species,
+    String type,
+    String gender,
+    ApiLocationRef origin,
+    ApiLocationRef location,
+    String image,
+    List<String> episode,
+    String url,
+    String created,
+  });
 
   @override
   $ApiLocationRefCopyWith<$Res> get origin;
@@ -191,8 +199,9 @@ class __$$_ApiCharacterCopyWithImpl<$Res>
     extends _$ApiCharacterCopyWithImpl<$Res, _$_ApiCharacter>
     implements _$$_ApiCharacterCopyWith<$Res> {
   __$$_ApiCharacterCopyWithImpl(
-      _$_ApiCharacter _value, $Res Function(_$_ApiCharacter) _then)
-      : super(_value, _then);
+    _$_ApiCharacter _value,
+    $Res Function(_$_ApiCharacter) _then,
+  ) : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
@@ -210,76 +219,78 @@ class __$$_ApiCharacterCopyWithImpl<$Res>
     Object? url = null,
     Object? created = null,
   }) {
-    return _then(_$_ApiCharacter(
-      id: null == id
-          ? _value.id
-          : id // ignore: cast_nullable_to_non_nullable
-              as int,
-      name: null == name
-          ? _value.name
-          : name // ignore: cast_nullable_to_non_nullable
-              as String,
-      status: null == status
-          ? _value.status
-          : status // ignore: cast_nullable_to_non_nullable
-              as String,
-      species: null == species
-          ? _value.species
-          : species // ignore: cast_nullable_to_non_nullable
-              as String,
-      type: null == type
-          ? _value.type
-          : type // ignore: cast_nullable_to_non_nullable
-              as String,
-      gender: null == gender
-          ? _value.gender
-          : gender // ignore: cast_nullable_to_non_nullable
-              as String,
-      origin: null == origin
-          ? _value.origin
-          : origin // ignore: cast_nullable_to_non_nullable
-              as ApiLocationRef,
-      location: null == location
-          ? _value.location
-          : location // ignore: cast_nullable_to_non_nullable
-              as ApiLocationRef,
-      image: null == image
-          ? _value.image
-          : image // ignore: cast_nullable_to_non_nullable
-              as String,
-      episode: null == episode
-          ? _value._episode
-          : episode // ignore: cast_nullable_to_non_nullable
-              as List<String>,
-      url: null == url
-          ? _value.url
-          : url // ignore: cast_nullable_to_non_nullable
-              as String,
-      created: null == created
-          ? _value.created
-          : created // ignore: cast_nullable_to_non_nullable
-              as String,
-    ));
+    return _then(
+      _$_ApiCharacter(
+        id: null == id
+            ? _value.id
+            : id // ignore: cast_nullable_to_non_nullable
+                  as int,
+        name: null == name
+            ? _value.name
+            : name // ignore: cast_nullable_to_non_nullable
+                  as String,
+        status: null == status
+            ? _value.status
+            : status // ignore: cast_nullable_to_non_nullable
+                  as String,
+        species: null == species
+            ? _value.species
+            : species // ignore: cast_nullable_to_non_nullable
+                  as String,
+        type: null == type
+            ? _value.type
+            : type // ignore: cast_nullable_to_non_nullable
+                  as String,
+        gender: null == gender
+            ? _value.gender
+            : gender // ignore: cast_nullable_to_non_nullable
+                  as String,
+        origin: null == origin
+            ? _value.origin
+            : origin // ignore: cast_nullable_to_non_nullable
+                  as ApiLocationRef,
+        location: null == location
+            ? _value.location
+            : location // ignore: cast_nullable_to_non_nullable
+                  as ApiLocationRef,
+        image: null == image
+            ? _value.image
+            : image // ignore: cast_nullable_to_non_nullable
+                  as String,
+        episode: null == episode
+            ? _value._episode
+            : episode // ignore: cast_nullable_to_non_nullable
+                  as List<String>,
+        url: null == url
+            ? _value.url
+            : url // ignore: cast_nullable_to_non_nullable
+                  as String,
+        created: null == created
+            ? _value.created
+            : created // ignore: cast_nullable_to_non_nullable
+                  as String,
+      ),
+    );
   }
 }
 
 /// @nodoc
 @JsonSerializable()
 class _$_ApiCharacter implements _ApiCharacter {
-  const _$_ApiCharacter(
-      {this.id = 0,
-      this.name = '',
-      this.status = '',
-      this.species = '',
-      this.type = '',
-      this.gender = '',
-      this.origin = const ApiLocationRef(),
-      this.location = const ApiLocationRef(),
-      this.image = '',
-      final List<String> episode = const <String>[],
-      this.url = '',
-      this.created = ''})
-      : _episode = episode;
+  const _$_ApiCharacter({
+    this.id = 0,
+    this.name = '',
+    this.status = '',
+    this.species = '',
+    this.type = '',
+    this.gender = '',
+    this.origin = const ApiLocationRef(),
+    this.location = const ApiLocationRef(),
+    this.image = '',
+    final List<String> episode = const <String>[],
+    this.url = '',
+    this.created = '',
+  }) : _episode = episode;
 
   factory _$_ApiCharacter.fromJson(Map<String, dynamic> json) =>
       _$$_ApiCharacterFromJson(json);
@@ -355,19 +366,20 @@ class _$_ApiCharacter implements _ApiCharacter {
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(
-      runtimeType,
-      id,
-      name,
-      status,
-      species,
-      type,
-      gender,
-      origin,
-      location,
-      image,
-      const DeepCollectionEquality().hash(_episode),
-      url,
-      created);
+    runtimeType,
+    id,
+    name,
+    status,
+    species,
+    type,
+    gender,
+    origin,
+    location,
+    image,
+    const DeepCollectionEquality().hash(_episode),
+    url,
+    created,
+  );
 
   @JsonKey(ignore: true)
   @override
@@ -377,26 +389,25 @@ class _$_ApiCharacter implements _ApiCharacter {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$_ApiCharacterToJson(
-      this,
-    );
+    return _$$_ApiCharacterToJson(this);
   }
 }
 
 abstract class _ApiCharacter implements ApiCharacter {
-  const factory _ApiCharacter(
-      {final int id,
-      final String name,
-      final String status,
-      final String species,
-      final String type,
-      final String gender,
-      final ApiLocationRef origin,
-      final ApiLocationRef location,
-      final String image,
-      final List<String> episode,
-      final String url,
-      final String created}) = _$_ApiCharacter;
+  const factory _ApiCharacter({
+    final int id,
+    final String name,
+    final String status,
+    final String species,
+    final String type,
+    final String gender,
+    final ApiLocationRef origin,
+    final ApiLocationRef location,
+    final String image,
+    final List<String> episode,
+    final String url,
+    final String created,
+  }) = _$_ApiCharacter;
 
   factory _ApiCharacter.fromJson(Map<String, dynamic> json) =
       _$_ApiCharacter.fromJson;

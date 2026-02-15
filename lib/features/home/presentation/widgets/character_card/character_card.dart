@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 
-import '../../../../core/models/api/api_character.dart';
+import '../../../../../core/models/api/api_character.dart';
+import '../../../../../core/ui_kit/chips/icon_meta_chip.dart';
+import 'character_avatar.dart';
+import 'favorite_toggle_button.dart';
 
 class CharacterCard extends StatelessWidget {
   const CharacterCard({
@@ -29,7 +32,7 @@ class CharacterCard extends StatelessWidget {
           child: Row(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              _CharacterImage(imageUrl: character.image),
+              CharacterAvatar(imageUrl: character.image),
               const SizedBox(width: 12),
               Expanded(
                 child: Column(
@@ -49,12 +52,9 @@ class CharacterCard extends StatelessWidget {
                             ),
                           ),
                         ),
-                        IconButton.filledTonal(
+                        FavoriteToggleButton(
+                          isFavorite: isFavorite,
                           onPressed: onFavoritePressed,
-                          icon: Icon(
-                            isFavorite ? Icons.star_rounded : Icons.star_border_rounded,
-                            color: isFavorite ? const Color(0xFFFFC329) : colors.onSurfaceVariant,
-                          ),
                         ),
                       ],
                     ),
@@ -63,15 +63,12 @@ class CharacterCard extends StatelessWidget {
                       spacing: 8,
                       runSpacing: 8,
                       children: [
-                        _MetaChip(
-                          icon: Icons.circle,
-                          label: character.status,
-                        ),
-                        _MetaChip(
+                        IconMetaChip(icon: Icons.circle, label: character.status),
+                        IconMetaChip(
                           icon: Icons.pets_outlined,
                           label: character.species,
                         ),
-                        _MetaChip(
+                        IconMetaChip(
                           icon: Icons.person_outline_rounded,
                           label: character.gender,
                         ),
@@ -104,87 +101,6 @@ class CharacterCard extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-}
-
-class _CharacterImage extends StatelessWidget {
-  const _CharacterImage({required this.imageUrl});
-
-  final String imageUrl;
-
-  @override
-  Widget build(BuildContext context) {
-    final colors = Theme.of(context).colorScheme;
-
-    return ClipRRect(
-      borderRadius: BorderRadius.circular(16),
-      child: SizedBox(
-        width: 94,
-        height: 94,
-        child: imageUrl.isEmpty
-            ? ColoredBox(
-                color: colors.surfaceContainerHigh,
-                child: Icon(Icons.image_not_supported_outlined, color: colors.onSurfaceVariant),
-              )
-            : Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-                errorBuilder: (_, __, ___) {
-                  return ColoredBox(
-                    color: colors.surfaceContainerHigh,
-                    child: Icon(Icons.broken_image_outlined, color: colors.onSurfaceVariant),
-                  );
-                },
-                loadingBuilder: (context, child, progress) {
-                  if (progress == null) {
-                    return child;
-                  }
-                  return ColoredBox(
-                    color: colors.surfaceContainerHigh,
-                    child: const Center(child: CircularProgressIndicator(strokeWidth: 2)),
-                  );
-                },
-              ),
-      ),
-    );
-  }
-}
-
-class _MetaChip extends StatelessWidget {
-  const _MetaChip({
-    required this.icon,
-    required this.label,
-  });
-
-  final IconData icon;
-  final String label;
-
-  @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-    final colors = theme.colorScheme;
-
-    return Container(
-      padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-      decoration: BoxDecoration(
-        color: colors.surfaceContainerHighest.withOpacity(0.6),
-        borderRadius: BorderRadius.circular(999),
-      ),
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Icon(icon, size: 14, color: colors.onSurfaceVariant),
-          const SizedBox(width: 5),
-          Text(
-            label.isEmpty ? '-' : label,
-            style: theme.textTheme.labelMedium?.copyWith(
-              color: colors.onSurfaceVariant,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-        ],
       ),
     );
   }

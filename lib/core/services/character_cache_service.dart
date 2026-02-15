@@ -1,5 +1,3 @@
-import 'package:isar/isar.dart';
-
 import '../models/api/api_character.dart';
 import '../models/api/api_characters_page.dart';
 import '../models/api/api_info.dart';
@@ -18,34 +16,30 @@ class CharacterCacheService {
   }
 
   Future<void> cacheCharacters(List<ApiCharacter> characters) async {
-    final isar = await _databaseService.open();
+    final box = await _databaseService.open();
     if (characters.isEmpty) {
       return;
     }
 
-    final ids = characters
-        .map((character) => character.id)
-        .toList(growable: false);
-    final existing = await isar.characterEntitys.getAll(ids);
     final favoriteById = <int, bool>{};
-    for (final item in existing) {
-      if (item != null) {
-        favoriteById[item.id] = item.isFavorite;
+    for (final character in characters) {
+      final stored = box.get('${character.id}');
+      if (stored == null) {
+        continue;
       }
+      final entity = CharacterEntity.fromMap(Map<String, dynamic>.from(stored));
+      favoriteById[entity.id] = entity.isFavorite;
     }
 
-    final toSave = characters
-        .map((character) {
-          return CharacterEntity.fromApi(
-            character,
-            isFavorite: favoriteById[character.id] ?? false,
-          );
-        })
-        .toList(growable: false);
-
-    await isar.writeTxn(() async {
-      await isar.characterEntitys.putAll(toSave);
-    });
+    final updates = <String, Map>{};
+    for (final character in characters) {
+      final entity = CharacterEntity.fromApi(
+        character,
+        isFavorite: favoriteById[character.id] ?? false,
+      );
+      updates['${character.id}'] = entity.toMap();
+    }
+    await box.putAll(updates);
   }
 
   Future<ApiCharactersPage> getCharactersPage({
@@ -56,8 +50,12 @@ class CharacterCacheService {
     String? type,
     String? gender,
   }) async {
-    final isar = await _databaseService.open();
-    final all = await isar.characterEntitys.where().findAll();
+    final box = await _databaseService.open();
+    final all = box.values
+        .map(
+          (value) => CharacterEntity.fromMap(Map<String, dynamic>.from(value)),
+        )
+        .toList(growable: false);
 
     final filtered = all.where((character) {
       return _contains(character.name, name) &&
@@ -87,41 +85,43 @@ class CharacterCacheService {
   }
 
   Future<List<ApiCharacter>> getFavoriteCharacters() async {
-    final isar = await _databaseService.open();
-    final all = await isar.characterEntitys.where().findAll();
+    final box = await _databaseService.open();
+    final all = box.values
+        .map(
+          (value) => CharacterEntity.fromMap(Map<String, dynamic>.from(value)),
+        )
+        .toList(growable: false);
     final favorites = all.where((item) => item.isFavorite).toList()
       ..sort((a, b) => a.id.compareTo(b.id));
     return favorites.map(_toApiCharacter).toList(growable: false);
   }
 
   Future<bool> setFavorite(int characterId, bool value) async {
-    final isar = await _databaseService.open();
-    final entity = await isar.characterEntitys.get(characterId);
-    if (entity == null) {
+    final box = await _databaseService.open();
+    final raw = box.get('$characterId');
+    if (raw == null) {
       return false;
     }
 
+    final entity = CharacterEntity.fromMap(Map<String, dynamic>.from(raw));
     entity.isFavorite = value;
     entity.updatedAt = DateTime.now();
-    await isar.writeTxn(() async {
-      await isar.characterEntitys.put(entity);
-    });
+    await box.put('$characterId', entity.toMap());
     return true;
   }
 
   Future<bool> toggleFavorite(int characterId) async {
-    final isar = await _databaseService.open();
-    final entity = await isar.characterEntitys.get(characterId);
-    if (entity == null) {
+    final box = await _databaseService.open();
+    final raw = box.get('$characterId');
+    if (raw == null) {
       return false;
     }
 
+    final entity = CharacterEntity.fromMap(Map<String, dynamic>.from(raw));
     entity.isFavorite = !entity.isFavorite;
     entity.updatedAt = DateTime.now();
-    await isar.writeTxn(() async {
-      await isar.characterEntitys.put(entity);
-    });
-    return entity.isFavorite;
+    await box.put('$characterId', entity.toMap());
+    return true;
   }
 
   static bool _contains(String value, String? query) {

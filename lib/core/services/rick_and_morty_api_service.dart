@@ -46,22 +46,22 @@ class RickAndMortyApiService {
       final request = await _httpClient.getUrl(uri);
       response = await request.close();
     } on SocketException catch (error) {
-      throw RickAndMortyApiException('Network error: $error');
+      throw RickAndMortyApiException('Ошибка сети: $error');
     } on HttpException catch (error) {
-      throw RickAndMortyApiException('HTTP error: $error');
+      throw RickAndMortyApiException('HTTP ошибка: $error');
     }
 
     final body = await utf8.decodeStream(response);
     if (response.statusCode < 200 || response.statusCode >= 300) {
       throw RickAndMortyApiException(
-        'Unexpected status code ${response.statusCode}. Body: $body',
+        'Неожиданный код статуса ${response.statusCode}. Тело ответа: $body',
         statusCode: response.statusCode,
       );
     }
 
     final decoded = jsonDecode(body);
     if (decoded is! Map<String, dynamic>) {
-      throw RickAndMortyApiException('Unexpected payload format.');
+      throw RickAndMortyApiException('Неожиданный формат ответа.');
     }
 
     return ApiCharactersPage.fromJson(decoded);

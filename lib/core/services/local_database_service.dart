@@ -1,38 +1,30 @@
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
-
-import '../models/entities/character_entity.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 class LocalDatabaseService {
-  LocalDatabaseService({this.databaseName = 'effective_mobile_task'});
+  LocalDatabaseService({this.databaseName = 'effective_mobile_task_box'});
 
   final String databaseName;
-  Isar? _isar;
+  Box<Map>? _box;
 
-  Future<Isar> open() async {
-    if (_isar != null && _isar!.isOpen) {
-      return _isar!;
+  Future<Box<Map>> open() async {
+    if (_box != null && _box!.isOpen) {
+      return _box!;
     }
 
-    final existing = Isar.getInstance(databaseName);
-    if (existing != null && existing.isOpen) {
-      _isar = existing;
-      return existing;
+    await Hive.initFlutter();
+    if (Hive.isBoxOpen(databaseName)) {
+      _box = Hive.box<Map>(databaseName);
+      return _box!;
     }
 
-    final dir = await getApplicationDocumentsDirectory();
-    _isar = await Isar.open(
-      <CollectionSchema>[CharacterEntitySchema],
-      name: databaseName,
-      directory: dir.path,
-    );
-    return _isar!;
+    _box = await Hive.openBox<Map>(databaseName);
+    return _box!;
   }
 
   Future<void> close() async {
-    if (_isar != null && _isar!.isOpen) {
-      await _isar!.close();
+    if (_box != null && _box!.isOpen) {
+      await _box!.close();
     }
-    _isar = null;
+    _box = null;
   }
 }
